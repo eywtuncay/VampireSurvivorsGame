@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float movomentSpeed;
 
-    public float minX, maxX, minY, maxY; // Haritanýn sýnýrlarý
+    public float minX, maxX, minY, maxY; // Borders of the map
 
 
     void Start()
@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        // Karakterin koordinatlarýný sýnýrla
+        // Limit character's coordinates
         Vector3 currentPosition = transform.position;
         currentPosition.x = Mathf.Clamp(currentPosition.x, minX, maxX);
         currentPosition.y = Mathf.Clamp(currentPosition.y, minY, maxY);
