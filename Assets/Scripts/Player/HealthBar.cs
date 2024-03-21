@@ -3,51 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealtBar : MonoBehaviour
+public class HealthBar : MonoBehaviour
 {
 
-    [SerializeField] Slider healtBar;
+    [SerializeField] Slider healthBar;
     [SerializeField] int maxHealth;
     int health;
-
 
     void Start()
     {
         health = maxHealth;
-        healtBar.maxValue = maxHealth;
-        healtBar.value = health;
+        healthBar.maxValue = maxHealth;
+        healthBar.value = health;
     }
 
 
     void Update()
     {
-        //testing
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             AddHealth(10);
         }
-
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             AddHealth(-10);
         }
-
     }
 
-
-    void AddHealth(int value) // ya da add helath olabilir
+    void AddHealth (int value)
     {
         health += value;
-        if (health > maxHealth)
+        if (health>maxHealth)
         {
             health = maxHealth;
         }
-        else if (health < 0)
+        else if (health<0)
         {
             health = 0;
         }
-
-        healtBar.value = health;
+        healthBar.value = health;
     }
 
 
