@@ -1,14 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class HealthBarManager : MonoBehaviour
 {
-
     [SerializeField] Slider healthBar;
     [SerializeField] int maxHealth;
     int health;
+
+    public static UnityAction OnPlayerDeath;
+
+    private void OnEnable()
+    {
+        PlayerHealthManager.OnPlayerTakeDamage += TakeDamage;
+    }
+    private void OnDisable()
+    {
+        PlayerHealthManager.OnPlayerTakeDamage -= TakeDamage;
+    }
 
     void Start()
     {
@@ -17,32 +26,20 @@ public class HealthBar : MonoBehaviour
         healthBar.value = health;
     }
 
-
-    void Update()
+    void TakeDamage(float damageAmount)
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (health <= 0)
         {
-            AddHealth(10);
+            OnPlayerDeath?.Invoke();
         }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            AddHealth(-10);
-        }
+
+        health -= (int)damageAmount;
+        health = Mathf.Max(0, health); 
+        UpdateHealthBar();
     }
 
-    void AddHealth (int value)
+    void UpdateHealthBar()
     {
-        health += value;
-        if (health>maxHealth)
-        {
-            health = maxHealth;
-        }
-        else if (health<0)
-        {
-            health = 0;
-        }
         healthBar.value = health;
     }
-
-
 }
