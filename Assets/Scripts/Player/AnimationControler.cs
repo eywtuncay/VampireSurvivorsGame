@@ -14,7 +14,7 @@ public class AnimationControler : MonoBehaviour {
     }
     private void OnDisable()
     {
-        PlayerHealthManager.OnPlayerTakeDamage += PlayHurtAnimation;
+        PlayerHealthManager.OnPlayerTakeDamage -= PlayHurtAnimation;
         HealthBarManager.OnPlayerDeath -= PlayDeathAnimation;
 
 
@@ -63,12 +63,12 @@ public class AnimationControler : MonoBehaviour {
     {
         m_animator.Play("Hurt");
     }
+
     private void PlayDeathAnimation()
     {
         if (!m_isDead)
             m_animator.SetTrigger("Death");
 
         m_isDead = !m_isDead;
-
     }
 }

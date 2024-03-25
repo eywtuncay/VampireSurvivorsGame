@@ -1,12 +1,15 @@
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HealthBarManager : MonoBehaviour
 {
     [SerializeField] Slider healthBar;
     [SerializeField] int maxHealth;
-    int health;
+    private int health;
+    
 
     public static UnityAction OnPlayerDeath;
 
@@ -18,7 +21,6 @@ public class HealthBarManager : MonoBehaviour
     {
         PlayerHealthManager.OnPlayerTakeDamage -= TakeDamage;
     }
-
     void Start()
     {
         health = maxHealth;
