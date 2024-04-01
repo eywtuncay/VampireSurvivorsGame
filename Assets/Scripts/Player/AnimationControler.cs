@@ -17,7 +17,6 @@ public class AnimationControler : MonoBehaviour {
         PlayerHealthManager.OnPlayerTakeDamage -= PlayHurtAnimation;
         HealthBarManager.OnPlayerDeath -= PlayDeathAnimation;
 
-
     }
 
     // Use this for initialization

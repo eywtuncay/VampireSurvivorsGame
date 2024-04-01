@@ -3,23 +3,28 @@ using UnityEngine.Events;
 
 public class EnemyController : MonoBehaviour
 {
-    private Sprite sprite;
-
     private float moveSpeed;
     private float health;
     private float damage;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    public ObjectPool enemyPool;
 
-    [HideInInspector] public EnemyData_SO enemyData;
+
+    public EnemyData_SO enemyData;
 
     private Transform target;
 
     private void Start()
     {
-        moveSpeed = enemyData.moveSpeed;
         health = enemyData.health;
         damage = enemyData.damage;
-        sprite = enemyData.sprite;
-
+        moveSpeed = enemyData.moveSpeed;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = enemyData.sprite;
+        
+        animator = GetComponent<Animator>();
+        animator.Play(enemyData.walkAnimation.name);
     }
 
     private void Awake()
@@ -31,7 +36,10 @@ public class EnemyController : MonoBehaviour
     {
         float step = moveSpeed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-
     }
 
+    public void ReturnEnemyToPool()
+    {
+        enemyPool.ReturnObjectToPool(gameObject);
+    }
 }
